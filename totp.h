@@ -10,11 +10,13 @@
 #define T0 0
 #define X 30 // time step
 
-uint32_t totp(hotp_context *ctx, uint8_t digits) {
-  time_t now = time(NULL);
-  ctx->counter = (now - T0) / X;
+uint32_t
+totp(hotp_context *ctx, uint8_t digits)
+{
+	time_t now = time(NULL);
+	ctx->counter = (now - T0) / X;
 
-  return hotp(ctx, digits);
+	return hotp(ctx, digits);
 }
 
 #endif
