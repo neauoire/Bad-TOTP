@@ -5,6 +5,7 @@
 #ifndef HOTP_H
 #define HOTP_H
 
+#include <stdint.h>
 #include "hmac.h"
 #include <math.h>
 #include <stdlib.h>

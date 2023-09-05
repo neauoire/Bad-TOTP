@@ -15,8 +15,8 @@ clean:
 
 bin/main: main.c
 	@ mkdir -p bin
-	@ cc main.c ${RELEASE_flags} -o bin/totp
+	@ cc main.c ${CLI_src} ${RELEASE_flags} -o bin/totp
 
 bin/test: tests/test.c
 	@ mkdir -p bin
-	@ cc tests/test.c ${RELEASE_flags} -o bin/test
+	@ cc tests/test.c ${CLI_src} ${RELEASE_flags} -o bin/test
