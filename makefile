@@ -6,10 +6,10 @@ DEBUG_flags=-DDEBUG -Wall -Wno-unknown-pragmas -Wpedantic -Wshadow -Wextra -Werr
 .PHONY: run format clean
 
 run: bin/main bin/test
-	./bin/test
-	./bin/totp
+	@ ./bin/test
+	@ ./bin/totp
 format:
-	@ clang-format -i ${CLI_src}
+	@ clang-format -i ${CLI_src} main.c tests/test.c
 clean:
 	@ rm -f bin/test
 

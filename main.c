@@ -1,16 +1,19 @@
-#include "sha1.h"
 #include "hotp.h"
+#include "sha1.h"
 #include "totp.h"
 
 #include <stdio.h>
 
 int main(int argc, char **argv) {
-  const char secret[] = "a very secret key!!!";
+  if (argc == 1) {
+    fprintf(stderr, "usage: totp message\n");
+    return 1;
+  }
 
   hotp_context ctx;
-  ctx.secret = (const uint8_t*) secret;
-  ctx.secretSize = sizeof(secret) - 1;
-  ctx.hashFn = (void* (*) (const void*, size_t)) method_two;
+  ctx.secret = (const uint8_t *)argv[1];
+  ctx.secretSize = sizeof(argv[1]) - 1;
+  ctx.hashFn = (void *(*)(const void *, size_t))method_two;
   ctx.blockSize = 64;
   ctx.outputLength = 20;
 

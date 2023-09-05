@@ -5,26 +5,24 @@
 #ifndef HOTP_H
 #define HOTP_H
 
-#include <stdlib.h>
-#include <math.h>
 #include "hmac.h"
+#include <math.h>
+#include <stdlib.h>
 
 typedef struct {
   uint64_t counter;
-  const uint8_t* secret;
+  const uint8_t *secret;
   size_t secretSize;
 
-  void* (*hashFn)(const void*, size_t);
+  void *(*hashFn)(const void *, size_t);
   size_t blockSize;
   size_t outputLength;
 } hotp_context;
 
-uint32_t hotp_DT(const uint8_t* data, size_t len) {
+uint32_t hotp_DT(const uint8_t *data, size_t len) {
   uint8_t offset = data[len - 1] & 0x0f;
-  uint32_t p = (data[offset] & 0x7f) << 24 
-    | data[offset + 1] << 16 
-    | data[offset + 2] << 8
-    | data[offset + 3];
+  uint32_t p = (data[offset] & 0x7f) << 24 | data[offset + 1] << 16 |
+               data[offset + 2] << 8 | data[offset + 3];
 
   return p;
 }
@@ -44,11 +42,12 @@ uint32_t hotp(hotp_context *ctx, uint8_t digits) {
   counter[6] = ctx->counter >> 8;
   counter[7] = ctx->counter;
 
-  uint8_t* hs = hmac(counter, sizeof(counter), ctx->secret, ctx->secretSize, ctx->hashFn, ctx->blockSize, ctx->outputLength);
+  uint8_t *hs = hmac(counter, sizeof(counter), ctx->secret, ctx->secretSize,
+                     ctx->hashFn, ctx->blockSize, ctx->outputLength);
 
   uint32_t Snum = hotp_DT(hs, ctx->outputLength);
   free(hs);
-  return Snum % (uint32_t) pow(10.0, digits);
+  return Snum % (uint32_t)pow(10.0, digits);
 }
 
 #endif

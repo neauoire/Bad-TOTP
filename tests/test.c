@@ -1,10 +1,10 @@
-#include "test_sha1.h"
-#include "test_sha256.h"
-#include "test_sha512.h"
 #include "test_hmac_sha1.h"
 #include "test_hmac_sha256.h"
 #include "test_hmac_sha512.h"
 #include "test_hotp.h"
+#include "test_sha1.h"
+#include "test_sha256.h"
+#include "test_sha512.h"
 
 #include <stdio.h>
 
@@ -74,6 +74,7 @@ int main() {
     printf("HOTP passed.\n");
   }
 
-  hasFailed ? printf("\n\nSome tests failed\n") : printf("\n\nAll tests passed\n");
+  hasFailed ? printf("\n\nSome tests failed\n")
+            : printf("\n\nAll tests passed\n");
   return hasFailed;
 }
